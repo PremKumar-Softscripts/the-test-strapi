@@ -398,6 +398,35 @@ export interface ApiEventEvent extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiImageGalleryImageGallery
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'image_galleries';
+  info: {
+    displayName: 'ImageGallery';
+    pluralName: 'image-galleries';
+    singularName: 'image-gallery';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::image-gallery.image-gallery'
+    > &
+      Schema.Attribute.Private;
+    number: Schema.Attribute.Integer;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiTheDemoTheDemo extends Struct.CollectionTypeSchema {
   collectionName: 'the_demos';
   info: {
@@ -936,6 +965,7 @@ declare module '@strapi/strapi' {
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
       'api::event.event': ApiEventEvent;
+      'api::image-gallery.image-gallery': ApiImageGalleryImageGallery;
       'api::the-demo.the-demo': ApiTheDemoTheDemo;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
